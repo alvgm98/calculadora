@@ -34,6 +34,9 @@ function clickOnComa() {
  * @param {string} operator operacion elegida
  */
 function clickOnOperator(operator) {
+   operator = operator === "/" ? "÷" : operator; // Para permitir añadir division por teclado usando la tecla '/'
+   operator = operator === "*" ? "x" : operator; // Para permitir añadir multiplicacion por teclado usando la tecla '*'
+   
    // Almacenamos el resultado en n[0] y preparamos n[1] para un nuevo numero
    n[0] = String(result); // Debemos convertirlo a string ya que result lo estamos almacenando en formato number.
    n[1] = "";
@@ -338,3 +341,30 @@ function toSquareRoot() {
    
    printAll()
 }
+
+document.addEventListener("keydown", (event) => {
+   const key = event.key;
+
+   // Verifica que es un numero
+   if (!isNaN(key)) {
+      clickOnNumber(key);
+      return;
+   }
+   
+   // Verifica que es un operador
+   if ("*/+-%x".includes(key)) {
+      clickOnOperator(key);
+      return;
+   }
+
+   // Verifica que es el separador decimal
+   if (key === ',' || key === '.') {
+      clickOnComa();
+      return;
+   }
+
+   // Verifica que es el backspace
+   if (key === 'Backspace') {
+      backspace();
+   }
+})
