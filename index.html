@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Calculadora</title>
+   <link rel="stylesheet" href="style.css">
+   <!-- DM SANS -->
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet">
+   <!-- GOOGLE MATERIAL -->
+   <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+
+<body>
+
+   <main>
+      <div id="pantalla">
+         <div id="operaciones"></div>
+         <div id="resultado">0</div>
+         <div id="memorias">
+            <button>MC</button>
+            <button>MR</button>
+            <button>M+</button>
+            <button>M-</button>
+            <button>MS</button>
+            <button>
+               M<span style="font-size: 14px;" class="material-symbols-outlined">
+                  keyboard_arrow_down
+               </span>
+            </button>
+
+         </div>
+      </div>
+      <div id="pad">
+         <button class="dark-btn" onclick="clickOnOperator('%')">%</button>
+         <button class="dark-btn" onclick="clearActualNumber()">CE</button>
+         <button class="dark-btn" onclick="clearAll()">C</button>
+         <button class="dark-btn" onclick="backspace()">
+            <span class="material-symbols-outlined">
+               backspace
+            </span>
+         </button>
+         <button class="dark-btn" onclick="reciprocalFunction()"><sup>1</sup>/<sub>x</sub></button>
+         <button class="dark-btn" onclick="toSquare()">x<sup>2</sup></button>
+         <button class="dark-btn" onclick="toSquareRoot()"><sup>2</sup>√x</button>
+         <button style="font-size: 22px;" class="dark-btn" onclick="clickOnOperator('÷')">&divide;</button>
+         <button class="light-btn" onclick="clickOnNumber('7')">7</button>
+         <button class="light-btn" onclick="clickOnNumber('8')">8</button>
+         <button class="light-btn" onclick="clickOnNumber('9')">9</button>
+         <button style="font-size: 20px;" class="dark-btn" onclick="clickOnOperator('x')">x</button>
+         <button class="light-btn" onclick="clickOnNumber('4')">4</button>
+         <button class="light-btn" onclick="clickOnNumber('5')">5</button>
+         <button class="light-btn" onclick="clickOnNumber('6')">6</button>
+         <button style="font-size: 20px;" class="dark-btn" onclick="clickOnOperator('-')"> - </button>
+         <button class="light-btn" onclick="clickOnNumber('1')">1</button>
+         <button class="light-btn" onclick="clickOnNumber('2')">2</button>
+         <button class="light-btn" onclick="clickOnNumber('3')">3</button>
+         <button style="font-size: 20px;" class="dark-btn" onclick="clickOnOperator('+')">+</button>
+         <button class="light-btn" onclick="changeSign()">+/-</button>
+         <button class="light-btn" onclick="clickOnNumber('0')">0</button>
+         <button class="light-btn" onclick="clickOnComa()">,</button>
+         <button style="font-size: 20px;" id="igual" onclick="clickOnEqual()"> = </button>
+      </div>
+   </main>
+
+   <script src="main.js"></script>
+</body>
+
+</html>
