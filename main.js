@@ -192,11 +192,11 @@ function calc() {
    /* CALCULO DE RAICES Y ELEVADOS */
    // Calculamos el elevado de n[0] antes de operar y convertimos a Float
    if (n[0].includes("²")) {
-      n0 = Math.pow(parseFloat(n[0].replace('²', '')), 2);
+      n0 = calcSquare(0);
    } 
    // Calculamos la raiz de n[0] antes de operar y convertimos a Float
    else if (n[0].includes("√")) {
-      n0 = Math.sqrt(parseFloat(n[0].replace('√', '')), 2);
+      n0 = calcSquareRoot(0);
    }
    // Si no incluye ninguna operación de raiz o cuadrado
    else {
@@ -205,11 +205,11 @@ function calc() {
 
    // Calculamos el elevado de n[1] antes de operar y convertimos a Float
    if (n[1].includes("²")) {
-      n1 = Math.pow(parseFloat(n[1].replace('²', '')), 2);
+      n1 = calcSquare(1);
    }
    // Calculamos la raiz de n[1] antes de operar y convertimos a Float
    else if (n[1].includes("√")) {
-      n1 = Math.sqrt(parseFloat(n[1].replace('√', '')), 2);
+      n1 = calcSquareRoot(1);
    }
    // Si no incluye ninguna operación de raiz o cuadrado
    else {
@@ -307,12 +307,12 @@ function toSquare() {
 
    // Si se intenta hacer el cuadrado de una raiz, calculamos la raiz 
    if (n[index].includes('√')) {
-      n[index] = String(Math.sqrt(parseFloat(n[index].replace('√', '')), 2));
+      n[index] = calcSquareRoot(index)
    }
 
    // Para evitar concatenar demasiados "²", al elevar al cuadrado algo elevado al cuadrado, calculamos el valor del primer cuadrado.
    if (n[index].includes('²')) {
-      n[index] = String(Math.pow(parseFloat(n[index].replace('²', '')), 2));
+      n[index] = calcSquare(index);
    }
    n[index] += '²';
    
@@ -330,16 +330,24 @@ function toSquareRoot() {
 
    // Si se intenta hacer la raiz de un cuadrado, calculamos el cuadrado 
    if (n[index].includes('²')) {
-      n[index] = String(Math.pow(parseFloat(n[index].replace('²', '')), 2));
+      n[index] = calcSquare(index);
    }
 
    // Para evitar concatenar demasiados "√", al hacer la raiz cuadrada a otra raiz cuadrada, reemplazamos por el calculo.
    if (n[index].includes('√')) {
-      n[index] = String(Math.sqrt(parseFloat(n[index].replace('√', '')), 2));
+      n[index] = calcSquareRoot(index)
    }
    n[index] = '√' + n[index];
    
    printAll()
+}
+
+function calcSquare(index) {
+   return String(Math.pow(parseFloat(n[index].replace('²', '')), 2));
+}
+
+function calcSquareRoot(index) {
+   return String(Math.sqrt(parseFloat(n[index].replace('√', '')), 2));
 }
 
 document.addEventListener("keydown", (event) => {
