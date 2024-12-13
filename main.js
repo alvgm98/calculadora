@@ -330,24 +330,31 @@ function toSquareRoot() {
 
    // Si se intenta hacer la raiz de un cuadrado, calculamos el cuadrado 
    if (n[index].includes('²')) {
-      n[index] = calcSquare(index);
+      n[index] = String(calcSquare(index));
    }
 
    // Para evitar concatenar demasiados "√", al hacer la raiz cuadrada a otra raiz cuadrada, reemplazamos por el calculo.
    if (n[index].includes('√')) {
-      n[index] = calcSquareRoot(index)
+      n[index] = String(calcSquareRoot(index));
    }
    n[index] = '√' + n[index];
    
    printAll()
 }
 
+/**
+ * IMPORTANTE:
+ * - Los siguientes calculos especiales devuelven el calculo en formato Number (Float).
+ * - Los indices de 'n' SIEMPRE DEBEN ser String
+ */
+/** Devuelve el calculo del cuadrado del indice de 'n' que toca. */
 function calcSquare(index) {
-   return String(Math.pow(parseFloat(n[index].replace('²', '')), 2));
+   return Math.pow(parseFloat(n[index].replace('²', '')), 2);
 }
 
+/** Devuelve el calculo de la raiz cuadrada del indice de 'n' que toca. */
 function calcSquareRoot(index) {
-   return String(Math.sqrt(parseFloat(n[index].replace('√', '')), 2));
+   return Math.sqrt(parseFloat(n[index].replace('√', '')), 2);
 }
 
 document.addEventListener("keydown", (event) => {
