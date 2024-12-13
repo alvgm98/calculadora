@@ -368,3 +368,33 @@ document.addEventListener("keydown", (event) => {
       backspace();
    }
 })
+
+/* CIENTIFICA */
+const CALCULATOR_TYPES = {
+   STANDARD: "Estándar",
+   SCIENTIFIC: "Científica",
+};
+let calculatorType = CALCULATOR_TYPES.STANDARD;
+
+function toggleCalculatorType() {
+   const padElement = document.getElementById("pad");
+   const calculatorTypeElement = document.getElementById("calculator-type");
+
+   if (calculatorType === CALCULATOR_TYPES.STANDARD) {
+      swapToScientific(padElement);
+   } else {
+      swapToStandard(padElement);
+   }
+   calculatorTypeElement.innerText = calculatorType;
+}
+
+function swapToStandard(padElement) {
+   calculatorType = CALCULATOR_TYPES.STANDARD;
+
+   padElement.classList.replace("scientific", "standard");
+}
+function swapToScientific(padElement) {
+   calculatorType = CALCULATOR_TYPES.SCIENTIFIC;
+   
+   padElement.classList.replace("standard", "scientific");
+}

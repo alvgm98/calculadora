@@ -21,23 +21,36 @@ body {
 
 main {
    border-radius: 6px;
-   width: 500px;
+   width: 520px;
    background-color: #202020;
 }
 
 #pantalla {
    box-sizing: border-box;
    padding: 6px 6px 0 6px;
-   height: 140px;
+   height: 180px;
 
    display: flex;
    flex-direction: column;
 }
 
+#calculator-type {
+   padding: 5px 10px;
+   font-size: 1.4rem;
+   transition: 300ms;
+
+   user-select: none;
+}
+
+#calculator-type:hover {
+   cursor: pointer;
+   color: #b6b6b6;
+}
+
 #operaciones {
    padding-inline: 12px;
    height: 50%;
-   
+
    color: #838383;
 
    display: flex;
@@ -73,7 +86,7 @@ main {
    border-radius: 4px;
    width: 100%;
    height: 26px;
-   
+
    background-color: transparent;
    font-size: 12px;
 
@@ -83,6 +96,7 @@ main {
 
    transition: 200ms;
 }
+
 #memorias button:hover {
    cursor: pointer;
    background-color: #34303e;
@@ -91,8 +105,19 @@ main {
 #pad {
    padding: 6px;
    display: grid;
-   grid-template-columns: repeat(4, 1fr);
    gap: 6px;
+}
+
+.standard {
+   grid-template-columns: repeat(4, 1fr);
+}
+
+.scientific {
+   grid-template-columns: repeat(5, 1fr);
+}
+
+.standard .scientific-btn {
+   display: none;
 }
 
 #pad button {
@@ -107,18 +132,23 @@ main {
 #igual {
    background-color: #40bdff;
 }
+
 #igual:hover {
    background-color: #3cade8;
 }
+
 .light-btn {
    background-color: #41383f;
 }
+
 .light-btn:hover {
    background-color: #34303e;
 }
+
 .dark-btn {
    background-color: #34303e;
 }
+
 .dark-btn:hover {
    background-color: #41383f;
 }

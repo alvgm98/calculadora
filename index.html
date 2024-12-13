@@ -21,6 +21,7 @@
 
    <main>
       <div id="pantalla">
+         <div id="calculator-type" onclick="toggleCalculatorType()">Estándar</div>
          <div id="operaciones"></div>
          <div id="resultado">0</div>
          <div id="memorias">
@@ -37,7 +38,9 @@
 
          </div>
       </div>
-      <div id="pad">
+      <div id="pad" class="standard">
+         <!-- Primera Fila -->
+         <button class="dark-btn scientific-btn">π</button>
          <button class="dark-btn" onclick="clickOnOperator('%')">%</button>
          <button class="dark-btn" onclick="clearActualNumber()">CE</button>
          <button class="dark-btn" onclick="clearAll()">C</button>
@@ -46,22 +49,32 @@
                backspace
             </span>
          </button>
+         <!-- Segunda Fila -->
+         <button class="dark-btn scientific-btn">e</button>
          <button class="dark-btn" onclick="reciprocalFunction()"><sup>1</sup>/<sub>x</sub></button>
          <button class="dark-btn" onclick="toSquare()">x<sup>2</sup></button>
          <button class="dark-btn" onclick="toSquareRoot()"><sup>2</sup>√x</button>
          <button style="font-size: 22px;" class="dark-btn" onclick="clickOnOperator('÷')">&divide;</button>
+         <!-- Tercera Fila -->
+         <button class="dark-btn scientific-btn">10<sup>x</sup></button>
          <button class="light-btn" onclick="clickOnNumber('7')">7</button>
          <button class="light-btn" onclick="clickOnNumber('8')">8</button>
          <button class="light-btn" onclick="clickOnNumber('9')">9</button>
          <button style="font-size: 20px;" class="dark-btn" onclick="clickOnOperator('x')">x</button>
+         <!-- Cuarta Fila -->
+         <button class="dark-btn scientific-btn">|x|</button>
          <button class="light-btn" onclick="clickOnNumber('4')">4</button>
          <button class="light-btn" onclick="clickOnNumber('5')">5</button>
          <button class="light-btn" onclick="clickOnNumber('6')">6</button>
          <button style="font-size: 20px;" class="dark-btn" onclick="clickOnOperator('-')"> - </button>
+         <!-- Quinta Fila -->
+         <button class="dark-btn scientific-btn">log</button>
          <button class="light-btn" onclick="clickOnNumber('1')">1</button>
          <button class="light-btn" onclick="clickOnNumber('2')">2</button>
          <button class="light-btn" onclick="clickOnNumber('3')">3</button>
          <button style="font-size: 20px;" class="dark-btn" onclick="clickOnOperator('+')">+</button>
+         <!-- Sexta Fila -->
+         <button class="dark-btn scientific-btn">ln</button>
          <button class="light-btn" onclick="changeSign()">+/-</button>
          <button class="light-btn" onclick="clickOnNumber('0')">0</button>
          <button class="light-btn" onclick="clickOnComa()">,</button>
