@@ -305,17 +305,10 @@ function toSquare() {
       n[index] = "0";
    }
 
-   // Si se intenta hacer el cuadrado de una raiz, calculamos la raiz 
-   if (n[index].includes('√')) {
-      n[index] = calcSquareRoot(index)
-   }
+   // Calculamos caracteres especiales para evitar concatenar varios caracteres especiales.
+   n[index] = unescapeIndex(index);
 
-   // Para evitar concatenar demasiados "²", al elevar al cuadrado algo elevado al cuadrado, calculamos el valor del primer cuadrado.
-   if (n[index].includes('²')) {
-      n[index] = calcSquare(index);
-   }
    n[index] += '²';
-   
    printAll()
 }
 
@@ -328,25 +321,25 @@ function toSquareRoot() {
       n[index] = "0";
    }
 
-   // Si se intenta hacer la raiz de un cuadrado, calculamos el cuadrado 
-   if (n[index].includes('²')) {
-      n[index] = String(calcSquare(index));
-   }
-
-   // Para evitar concatenar demasiados "√", al hacer la raiz cuadrada a otra raiz cuadrada, reemplazamos por el calculo.
-   if (n[index].includes('√')) {
-      n[index] = String(calcSquareRoot(index));
-   }
+   // Calculamos caracteres especiales para evitar concatenar varios caracteres especiales.
+   n[index] = unescapeIndex(index);
    n[index] = '√' + n[index];
-   
+
    printAll()
 }
 
-/**
- * IMPORTANTE:
- * - Los siguientes calculos especiales devuelven el calculo en formato Number (Float).
- * - Los indices de 'n' SIEMPRE DEBEN ser String
- */
+/** Esta funcion elimina los caracteres especiales del indice de 'n' que toca, haciendo los calculos pertinentes */
+function unescapeIndex(index) {
+   switch (true) {
+      // Cuadrado
+      case n[index].includes("²"): return String(calcSquare(index));
+      // Raiz
+      case n[index].includes("√"): return String(calcSquareRoot(index));
+      // Si no hay caracter especial
+      default: return n[index];
+   }
+}
+
 /** Devuelve el calculo del cuadrado del indice de 'n' que toca. */
 function calcSquare(index) {
    return Math.pow(parseFloat(n[index].replace('²', '')), 2);
