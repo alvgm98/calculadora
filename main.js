@@ -198,6 +198,10 @@ function calc() {
    else if (n[0].includes("√")) {
       n0 = calcSquareRoot(0);
    }
+   // Calculo el logaritmo de n[0] antes de operar
+   else if (n[0].includes("log")) {
+      n0 = calcLog(0);
+   }
    // Si no incluye ninguna operación de raiz o cuadrado
    else {
       n0 = parseFloat(n[0]);
@@ -210,6 +214,10 @@ function calc() {
    // Calculamos la raiz de n[1] antes de operar y convertimos a Float
    else if (n[1].includes("√")) {
       n1 = calcSquareRoot(1);
+   }
+   // Calculo el logaritmo de n[0] antes de operar
+   else if (n[1].includes("log")) {
+      n1 = calcLog(1);
    }
    // Si no incluye ninguna operación de raiz o cuadrado
    else {
@@ -297,7 +305,7 @@ function reciprocalFunction() {
 }
 
 /** Esta función realiza el cuadrado del indice de 'n' que toca */
-function toSquare() {   
+function toSquare() {
    let index = Number(nSelected);
 
    // Evitamos elevar una cadena vacía
@@ -305,11 +313,8 @@ function toSquare() {
       n[index] = "0";
    }
 
-   // Calculamos caracteres especiales para evitar concatenar varios caracteres especiales.
-   n[index] = unescapeIndex(index);
-
-   n[index] += '²';
-   printAll()
+   n[index] = unescapeIndex(index) + "²";
+   printAll();
 }
 
 /** Esta función realiza la raiz cuadrada del indice de 'n' que toca */
@@ -321,11 +326,20 @@ function toSquareRoot() {
       n[index] = "0";
    }
 
-   // Calculamos caracteres especiales para evitar concatenar varios caracteres especiales.
-   n[index] = unescapeIndex(index);
-   n[index] = '√' + n[index];
+   n[index] = "√" + unescapeIndex(index);
+   printAll();
+}
 
-   printAll()
+function toLog() {
+   let index = Number(nSelected);
+
+   // Evitamos elevar una cadena vacía
+   if (n[index].length < 1) {
+      n[index] = "0";
+   }
+
+   n[index] = "log(" + unescapeIndex(index) + ")";
+   printAll();
 }
 
 /** Esta funcion elimina los caracteres especiales del indice de 'n' que toca, haciendo los calculos pertinentes */
@@ -335,6 +349,8 @@ function unescapeIndex(index) {
       case n[index].includes("²"): return String(calcSquare(index));
       // Raiz
       case n[index].includes("√"): return String(calcSquareRoot(index));
+      // Logaritmo
+      case n[index].includes("log"): return String(calcLog(index));
       // Si no hay caracter especial
       default: return n[index];
    }
@@ -348,6 +364,11 @@ function calcSquare(index) {
 /** Devuelve el calculo de la raiz cuadrada del indice de 'n' que toca. */
 function calcSquareRoot(index) {
    return Math.sqrt(parseFloat(n[index].replace('√', '')), 2);
+}
+
+/** Devuelve el calculo del logaritmo del indice de 'n' que toca. */
+function calcLog(index) {
+   return Math.log(parseFloat(n[index].replace('log(', '').replace(')', '')), 2);
 }
 
 document.addEventListener("keydown", (event) => {
