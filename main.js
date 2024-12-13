@@ -378,14 +378,14 @@ let calculatorType = CALCULATOR_TYPES.STANDARD;
 
 function toggleCalculatorType() {
    const padElement = document.getElementById("pad");
-   const calculatorTypeElement = document.getElementById("calculator-type");
+   const calculatorTypeNameElement = document.getElementById("type-name");
 
    if (calculatorType === CALCULATOR_TYPES.STANDARD) {
       swapToScientific(padElement);
    } else {
       swapToStandard(padElement);
    }
-   calculatorTypeElement.innerText = calculatorType;
+   calculatorTypeNameElement.innerText = calculatorType;
 }
 
 function swapToStandard(padElement) {

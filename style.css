@@ -35,16 +35,40 @@ main {
 }
 
 #calculator-type {
-   padding: 5px 10px;
+   width: fit-content;
+   padding: 5px 15px 5px 10px;
+   
+   border-radius: 3px;
    font-size: 1.4rem;
    transition: 300ms;
+
+   display: flex;
+   align-items: center;
+   gap: 4px;
 
    user-select: none;
 }
 
+#calculator-type .material-symbols-outlined {
+   font-size: 2rem;
+   transition: 300ms;
+}
+
+#type-name {
+   font-size: 1.4rem;
+   transition: 300ms;
+}
+
 #calculator-type:hover {
    cursor: pointer;
-   color: #b6b6b6;
+   background-color: #2a2a2a;
+}
+
+#calculator-type:hover .material-symbols-outlined {
+   color: #ddd;
+}
+#calculator-type:hover #type-name {
+   color: #ddd;
 }
 
 #operaciones {
