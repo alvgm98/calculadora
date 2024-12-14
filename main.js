@@ -246,8 +246,12 @@ function calcAdvanced(number) {
       case number.includes("²"): return String(calcSquare(number));
       // Raiz
       case number.includes("√"): return String(calcSquareRoot(number));
-      // Logaritmo
-      case number.includes("log"): return String(calcLog(number));
+      // Logaritmo base 10
+      case number.includes("log10"): return String(calcLog10(number));
+      // Logaritmo base 2
+      case number.includes("log2"): return String(calcLog2(number));
+      // Logaritmo neperiano
+      case number.includes("ln"): return String(calcLn(number));
       // Si no hay caracter especial
       default: return number;
    }
@@ -267,20 +271,40 @@ function calcSquare(number) {
  * Calcula la raiz cuadrada del numero recibido por parametro.
  * 
  * @param {string} number - Cadena que representa un número.
- * @returns {number} El numero elevado al cuadrado.
+ * @returns {number} El numero tras realizarle la raiz cuadrada.
  */
 function calcSquareRoot(number) {
    return Math.sqrt(parseFloat(number.replace('√', '')), 2);
 }
 
 /** 
+ * Calcula el logaritmo en base 10 del numero recibido por parametro.
+ * 
+ * @param {string} number - Cadena que representa un número.
+ * @returns {number} El numero tras realizarle el logaritmo en base 10.
+ */
+function calcLog10(number) {
+   return Math.log10(parseFloat(number.replace('log10(', '').replace(')', '')), 2);
+}
+
+/** 
  * Calcula el logaritmo del numero recibido por parametro.
  * 
  * @param {string} number - Cadena que representa un número.
- * @returns {number} El numero elevado al cuadrado.
+ * @returns {number} El numero tras realizarle el logaritmo en base 2.
  */
-function calcLog(number) {
-   return Math.log(parseFloat(number.replace('log(', '').replace(')', '')), 2);
+function calcLog2(number) {
+   return Math.log2(parseFloat(number.replace('log2(', '').replace(')', '')), 2);
+}
+
+/** 
+ * Calcula el logaritmo neperiano del numero recibido por parametro.
+ * 
+ * @param {string} number - Cadena que representa un número.
+ * @returns {number} El numero tras realizarle el logaritmo neperiano.
+ */
+function calcLn(number) {
+   return Math.log(parseFloat(number.replace('ln(', '').replace(')', '')), 2);
 }
 
 /**
@@ -350,10 +374,24 @@ function toSquareRoot() {
    printAll();
 }
 
-function toLog() {
+function toLog10() {
    let index = Number(nSelected);
 
-   n[index] = "log(" + calcAdvanced(n[index]) + ")";
+   n[index] = "log10(" + calcAdvanced(n[index]) + ")";
+   printAll();
+}
+
+function toLog2() {
+   let index = Number(nSelected);
+
+   n[index] = "log2(" + calcAdvanced(n[index]) + ")";
+   printAll();
+}
+
+function toLn() {
+   let index = Number(nSelected);
+
+   n[index] = "ln(" + calcAdvanced(n[index]) + ")";
    printAll();
 }
 
