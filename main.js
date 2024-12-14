@@ -308,7 +308,7 @@ function reciprocalFunction() {
 function toSquare() {
    let index = Number(nSelected);
 
-   n[index] = unescapeIndex(index) + "²";
+   n[index] = calcAdvanced(index) + "²";
    printAll();
 }
 
@@ -316,14 +316,14 @@ function toSquare() {
 function toSquareRoot() {
    let index = Number(nSelected);
 
-   n[index] = "√" + unescapeIndex(index);
+   n[index] = "√" + calcAdvanced(index);
    printAll();
 }
 
 function toLog() {
    let index = Number(nSelected);
 
-   n[index] = "log(" + unescapeIndex(index) + ")";
+   n[index] = "log(" + calcAdvanced(index) + ")";
    printAll();
 }
 
@@ -335,7 +335,7 @@ function preventEmptyIndex(index) {
 }
 
 /** Esta funcion elimina los caracteres especiales del indice de 'n' que toca, haciendo los calculos pertinentes */
-function unescapeIndex(index) {
+function calcAdvanced(index) {
    preventEmptyIndex(index); // Evitamos que la cadena se encuentre vacía
 
    switch (true) {
