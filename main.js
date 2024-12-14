@@ -222,7 +222,7 @@ function calc() {
 
 /** Esta funcion elimina los caracteres especiales del indice de 'n' que toca, haciendo los calculos pertinentes */
 function calcAdvanced(number) {
-   number = preventEmptyIndex(number); // Evitamos que la cadena se encuentre vacía
+   number = preventEmptyNumber(number); // Evitamos que la cadena se encuentre vacía
 
    switch (true) {
       // Cuadrado
@@ -249,6 +249,14 @@ function calcSquareRoot(number) {
 /** Devuelve el calculo del logaritmo del indice de 'n' que toca. */
 function calcLog(number) {
    return Math.log(parseFloat(number.replace('log(', '').replace(')', '')), 2);
+}
+
+/** Para evitar operar una cadena vacia, convertimos a 0 el indice si este se encuentra vacio */
+function preventEmptyNumber(number) {
+   if (number.length < 1) {
+      return "0";
+   }
+   return number;
 }
 
 /**
@@ -309,14 +317,6 @@ function toLog() {
 
    n[index] = "log(" + calcAdvanced(n[index]) + ")";
    printAll();
-}
-
-/** Para evitar operar una cadena vacia, convertimos a 0 el indice si este se encuentra vacio */
-function preventEmptyIndex(number) {
-   if (number.length < 1) {
-      return "0";
-   }
-   return number;
 }
 
 document.addEventListener("keydown", (event) => {
