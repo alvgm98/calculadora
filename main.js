@@ -100,6 +100,14 @@ function addNumber(number, index) {
    else if (n[index].includes("²")) {
       n[index] = n[index].replace("²", number + "²");
    }
+   // Para evitar 0 a la izquierda en logaritmos
+   else if (number !== "." && (n[index].includes("(0") && !n[index].includes("(0."))) {
+      n[index] = n[index].replace("(0", "(" + number);
+   }
+   // Para evitar añadir numeros fuera del parentesis de los logaritmos
+   else if (n[index].includes(")")) {
+      n[index] = n[index].replace(")", number + ")");
+   }
    // Para evitar 0 a la izquierda
    else if (n[index] === "0" && number !== ".") {
       n[index] = number;
