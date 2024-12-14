@@ -160,7 +160,7 @@ function clearActualNumber() {
    printAll()
 }
 
-/** Elimina el último caracter */
+/** Elimina el último caracter, recalcula y reimprime todo */
 function backspace() {
    let index = Number(nSelected);
 
@@ -184,7 +184,17 @@ function backspace() {
    printAll();
 }
 
-/** Devuelve el resultado de la operación elegida entre n[0] y n[1] */
+/**
+ * Realiza los cálculos matemáticos básicos y avanzados basados en el operador seleccionado.
+ * 
+ * - Convierte los valores de 'n' a números de punto flotante y procesa caracteres especiales 
+ *   asociados a cálculos avanzados (², √, log) mediante la función `calcAdvanced`.
+ * - Calcula el resultado según el operador seleccionado (`actualOperator`), que puede incluir 
+ *   operaciones básicas (+, -, x, ÷, %) o dejar el valor sin cambios si no se selecciona un operador.
+ * - Modifica la variable global `result` con el resultado del cálculo.
+ * 
+ * @returns {number|string} El resultado del cálculo como un número o "Math ERROR" si ocurre un error.
+ */
 function calc() {
    // Transformamos los indices de 'n' a Float, y calculamos las funciones avanzadas porque tienen caracteres especiales
    const numbers = [parseFloat(calcAdvanced(n[0])), parseFloat(calcAdvanced(n[1]))]
@@ -220,7 +230,14 @@ function calc() {
    }
 }
 
-/** Esta funcion elimina los caracteres especiales del indice de 'n' que toca, haciendo los calculos pertinentes */
+/**
+ * Realiza cálculos avanzados sobre un número representado como cadena.  
+ * Identifica caracteres especiales asociados a operaciones matemáticas avanzadas (², √, log) y realiza el cálculo correspondiente.  
+ * Si no se encuentra un carácter especial, devuelve la cadena original.
+ * 
+ * @param {string} number - Cadena que representa un número, posiblemente con caracteres especiales (², √, log).
+ * @returns {string} Cadena que representa el número con el cálculo aplicado si lo requiere; de lo contrario, la cadena original sin modificaciones.
+ */
 function calcAdvanced(number) {
    number = preventEmptyNumber(number); // Evitamos que la cadena se encuentre vacía
 
@@ -236,22 +253,42 @@ function calcAdvanced(number) {
    }
 }
 
-/** Devuelve el calculo del cuadrado del indice de 'n' que toca. */
+/** 
+ * Calcula el cuadrado del numero recibido por parametro.
+ * 
+ * @param {string} number - Cadena que representa un número.
+ * @returns {number} El numero elevado al cuadrado.
+ */
 function calcSquare(number) {
    return Math.pow(parseFloat(number.replace('²', '')), 2);
 }
 
-/** Devuelve el calculo de la raiz cuadrada del indice de 'n' que toca. */
+/** 
+ * Calcula la raiz cuadrada del numero recibido por parametro.
+ * 
+ * @param {string} number - Cadena que representa un número.
+ * @returns {number} El numero elevado al cuadrado.
+ */
 function calcSquareRoot(number) {
    return Math.sqrt(parseFloat(number.replace('√', '')), 2);
 }
 
-/** Devuelve el calculo del logaritmo del indice de 'n' que toca. */
+/** 
+ * Calcula el logaritmo del numero recibido por parametro.
+ * 
+ * @param {string} number - Cadena que representa un número.
+ * @returns {number} El numero elevado al cuadrado.
+ */
 function calcLog(number) {
    return Math.log(parseFloat(number.replace('log(', '').replace(')', '')), 2);
 }
 
-/** Para evitar operar una cadena vacia, convertimos a 0 el indice si este se encuentra vacio */
+/**
+ * Devuelve "0" si el número es una cadena vacía; de lo contrario, devuelve la cadena original.
+ *
+ * @param {string} number - Cadena que representa un número.
+ * @returns {string} "0" si la cadena está vacía; en caso contrario, la cadena original.
+ */
 function preventEmptyNumber(number) {
    if (number.length < 1) {
       return "0";
@@ -261,6 +298,7 @@ function preventEmptyNumber(number) {
 
 /**
  * Esta función formatea el numero a imprimir en el resultado, separando cada 3 numeros por '.' y la coma flotante como ','.
+ * 
  * @param {number} number El número a formatear
  * @returns {string} El número formateado.
  */
