@@ -308,11 +308,6 @@ function reciprocalFunction() {
 function toSquare() {
    let index = Number(nSelected);
 
-   // Evitamos elevar una cadena vacía
-   if (n[index].length < 1) {
-      n[index] = "0";
-   }
-
    n[index] = unescapeIndex(index) + "²";
    printAll();
 }
@@ -321,11 +316,6 @@ function toSquare() {
 function toSquareRoot() {
    let index = Number(nSelected);
 
-   // Evitamos elevar una cadena vacía
-   if (n[index].length < 1) {
-      n[index] = "0";
-   }
-
    n[index] = "√" + unescapeIndex(index);
    printAll();
 }
@@ -333,17 +323,21 @@ function toSquareRoot() {
 function toLog() {
    let index = Number(nSelected);
 
-   // Evitamos elevar una cadena vacía
-   if (n[index].length < 1) {
-      n[index] = "0";
-   }
-
    n[index] = "log(" + unescapeIndex(index) + ")";
    printAll();
 }
 
+/** Para evitar operar una cadena vacia, convertimos a 0 el indice si este se encuentra vacio */
+function preventEmptyIndex(index) {
+   if (n[index].length < 1) {
+      n[index] = "0";
+   }
+}
+
 /** Esta funcion elimina los caracteres especiales del indice de 'n' que toca, haciendo los calculos pertinentes */
 function unescapeIndex(index) {
+   preventEmptyIndex(index); // Evitamos que la cadena se encuentre vacía
+
    switch (true) {
       // Cuadrado
       case n[index].includes("²"): return String(calcSquare(index));
