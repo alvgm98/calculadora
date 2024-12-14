@@ -10,7 +10,14 @@ let lastWasEqual = false; // Almacenará si lo ultimo clickado fue el igual para
  * @param {string} number numero clickado
  */
 function clickOnNumber(number) {
-   addNumber(number, Number(nSelected));
+   const index = Number(nSelected);
+
+   // Si se encuentran los numeros especiales 'π' o 'e' se reemplaza todo
+   if (n[index].includes("π") || n[index].includes("e")) {
+      n[index] = "";
+   }
+
+   addNumber(number, index);
 }
 
 /** Añade el punto flotante al indice de 'n' que toca */
@@ -56,6 +63,21 @@ function clickOnEqual() {
       operaciones.innerText += " =";
       lastWasEqual = true;
    }
+}
+
+/** Esta función añade 'π' o 'e' a la operación */
+function clickOnSpecialNumber(number) {
+   const index = Number(nSelected);
+
+   // Reemplazamos cualquier numero que haya por el numero especial seleccionado.
+   if (!n[index]) {
+      n[index] = number;
+   } else if (n[index].includes('log')) {
+      n[index] = n[index].replace(/\(([^)]+)\)/g, `(${number})`); // Reemplazamos todo lo que hay dentro del parentesis
+   } else {
+      n[index] = n[index].replace(/(\d+(\.)?(\d+)?|π|e)/g, number); // Reemplazamos unicamentes numeros, comas decimales y PI o E.
+   }
+   printAll();
 }
 
 /** Cambia el signo del indice de 'n' que toca */
@@ -253,6 +275,14 @@ function calc() {
 function calcAdvanced(number) {
    number = preventEmptyNumber(number); // Evitamos que la cadena se encuentre vacía
 
+   // Calculamos numeros especiales
+   if (number.includes("π")) {
+      number = number.replace("π", String(Math.PI))
+   } else if (number.includes("e")) {
+      number = number.replace("e", String(Math.E))
+   }
+   
+   // Calculamos funciones especiales
    switch (true) {
       // Cuadrado
       case number.includes("²"): return String(calcSquare(number));
