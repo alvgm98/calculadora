@@ -186,80 +186,33 @@ function backspace() {
 
 /** Devuelve el resultado de la operación elegida entre n[0] y n[1] */
 function calc() {
-   let n0 = 0;
-   let n1 = 0;
-
-   /* CALCULO DE RAICES Y ELEVADOS */
-   // Calculamos el elevado de n[0] antes de operar y convertimos a Float
-   if (n[0].includes("²")) {
-      n0 = calcSquare(0);
-   } 
-   // Calculamos la raiz de n[0] antes de operar y convertimos a Float
-   else if (n[0].includes("√")) {
-      n0 = calcSquareRoot(0);
-   }
-   // Calculo el logaritmo de n[0] antes de operar
-   else if (n[0].includes("log")) {
-      n0 = calcLog(0);
-   }
-   // Si no incluye ninguna operación de raiz o cuadrado
-   else {
-      n0 = parseFloat(n[0]);
-   }
-
-   // Calculamos el elevado de n[1] antes de operar y convertimos a Float
-   if (n[1].includes("²")) {
-      n1 = calcSquare(1);
-   }
-   // Calculamos la raiz de n[1] antes de operar y convertimos a Float
-   else if (n[1].includes("√")) {
-      n1 = calcSquareRoot(1);
-   }
-   // Calculo el logaritmo de n[0] antes de operar
-   else if (n[1].includes("log")) {
-      n1 = calcLog(1);
-   }
-   // Si no incluye ninguna operación de raiz o cuadrado
-   else {
-      n1 = parseFloat(n[1]);
-   }
-
-   /* EVITAMOS ERRORES DE TIPO NaN */
-   // Si n[0] no tiene valor, resultado será 0.
-   if (isNaN(n0)) {
-      result = 0;
-      return result;
-   }
-   // Si n[1] no tiene valor, resultado sera n[1].
-   if (isNaN(n1)) {
-      result = n0;
-      return result;
-   }
+   // Transformamos los indices de 'n' a Float, y calculamos las funciones avanzadas porque tienen caracteres especiales
+   const numbers = [parseFloat(calcAdvanced(n[0])), parseFloat(calcAdvanced(n[1]))]
    
    /* CALCULAMOS SEGÚN LA OPERACIÓN ELEGIDA */
    switch (actualOperator) {
       case "": {
-         result = n0;
+         result = numbers[0];
          return result;
       }
       case "+": {
-         result = n0 + n1;
+         result = numbers[0] + numbers[1];
          return result;
       }
       case "-": {
-         result = n0 - n1;
+         result = numbers[0] - numbers[1];
          return result;
       }
       case "x": {
-         result = n0 * n1;
+         result = numbers[0] * numbers[1];
          return result;
       }
       case "÷": {
-         result = n0 / n1;
+         result = numbers[0] / numbers[1];
          return result;
       }
       case "%": {
-         result = n0 * (n1 / 100);
+         result = numbers[0] * (numbers[1] / 100);
          return result;
       }
       default:
@@ -267,10 +220,41 @@ function calc() {
    }
 }
 
+/** Esta funcion elimina los caracteres especiales del indice de 'n' que toca, haciendo los calculos pertinentes */
+function calcAdvanced(number) {
+   number = preventEmptyIndex(number); // Evitamos que la cadena se encuentre vacía
+
+   switch (true) {
+      // Cuadrado
+      case number.includes("²"): return String(calcSquare(number));
+      // Raiz
+      case number.includes("√"): return String(calcSquareRoot(number));
+      // Logaritmo
+      case number.includes("log"): return String(calcLog(number));
+      // Si no hay caracter especial
+      default: return number;
+   }
+}
+
+/** Devuelve el calculo del cuadrado del indice de 'n' que toca. */
+function calcSquare(number) {
+   return Math.pow(parseFloat(number.replace('²', '')), 2);
+}
+
+/** Devuelve el calculo de la raiz cuadrada del indice de 'n' que toca. */
+function calcSquareRoot(number) {
+   return Math.sqrt(parseFloat(number.replace('√', '')), 2);
+}
+
+/** Devuelve el calculo del logaritmo del indice de 'n' que toca. */
+function calcLog(number) {
+   return Math.log(parseFloat(number.replace('log(', '').replace(')', '')), 2);
+}
+
 /**
  * Esta función formatea el numero a imprimir en el resultado, separando cada 3 numeros por '.' y la coma flotante como ','.
- * @param {float} number numero en for
- * @returns string con el numero formateado.
+ * @param {number} number El número a formatear
+ * @returns {string} El número formateado.
  */
 function formatearNumero(number) {
    if (String(number).length < 13) {
@@ -308,7 +292,7 @@ function reciprocalFunction() {
 function toSquare() {
    let index = Number(nSelected);
 
-   n[index] = calcAdvanced(index) + "²";
+   n[index] = calcAdvanced(n[index]) + "²";
    printAll();
 }
 
@@ -316,53 +300,23 @@ function toSquare() {
 function toSquareRoot() {
    let index = Number(nSelected);
 
-   n[index] = "√" + calcAdvanced(index);
+   n[index] = "√" + calcAdvanced(n[index]);
    printAll();
 }
 
 function toLog() {
    let index = Number(nSelected);
 
-   n[index] = "log(" + calcAdvanced(index) + ")";
+   n[index] = "log(" + calcAdvanced(n[index]) + ")";
    printAll();
 }
 
 /** Para evitar operar una cadena vacia, convertimos a 0 el indice si este se encuentra vacio */
-function preventEmptyIndex(index) {
-   if (n[index].length < 1) {
-      n[index] = "0";
+function preventEmptyIndex(number) {
+   if (number.length < 1) {
+      return "0";
    }
-}
-
-/** Esta funcion elimina los caracteres especiales del indice de 'n' que toca, haciendo los calculos pertinentes */
-function calcAdvanced(index) {
-   preventEmptyIndex(index); // Evitamos que la cadena se encuentre vacía
-
-   switch (true) {
-      // Cuadrado
-      case n[index].includes("²"): return String(calcSquare(index));
-      // Raiz
-      case n[index].includes("√"): return String(calcSquareRoot(index));
-      // Logaritmo
-      case n[index].includes("log"): return String(calcLog(index));
-      // Si no hay caracter especial
-      default: return n[index];
-   }
-}
-
-/** Devuelve el calculo del cuadrado del indice de 'n' que toca. */
-function calcSquare(index) {
-   return Math.pow(parseFloat(n[index].replace('²', '')), 2);
-}
-
-/** Devuelve el calculo de la raiz cuadrada del indice de 'n' que toca. */
-function calcSquareRoot(index) {
-   return Math.sqrt(parseFloat(n[index].replace('√', '')), 2);
-}
-
-/** Devuelve el calculo del logaritmo del indice de 'n' que toca. */
-function calcLog(index) {
-   return Math.log(parseFloat(n[index].replace('log(', '').replace(')', '')), 2);
+   return number;
 }
 
 document.addEventListener("keydown", (event) => {
