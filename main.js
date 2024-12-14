@@ -92,13 +92,17 @@ function addNumber(number, index) {
    }
 
    /* PARA EVITAR CEROS A LA IZQUIERDA Y MANTENER EXPONENTES A LA DERECHA */
-   // Para evitar 0 a la izquierda en cuadrados y raices
-   if (number !== "." && (n[index] === "0²" || n[index] === "√0")) {
+   // Para evitar 0 a la izquierda en cuadrados, raices y factoriales
+   if (number !== "." && (n[index] === "0²" || n[index] === "√0" || n[index] === "0!")) {
       n[index] = n[index].replace("0", number);
    }
    // Para que el simbolo '²' siempre se encuentre a la derecha
    else if (n[index].includes("²")) {
       n[index] = n[index].replace("²", number + "²");
+   }
+   // Para que el simbolo '!' siempre se encuentre a la derecha
+   else if (n[index].includes("!")) {
+      n[index] = n[index].replace("!", number + "!");
    }
    // Para evitar 0 a la izquierda en logaritmos
    else if (number !== "." && (n[index].includes("(0") && !n[index].includes("(0."))) {
@@ -254,6 +258,8 @@ function calcAdvanced(number) {
       case number.includes("²"): return String(calcSquare(number));
       // Raiz
       case number.includes("√"): return String(calcSquareRoot(number));
+      // Factorial
+      case number.includes("!"): return String(calcFact(number));
       // Logaritmo base 10
       case number.includes("log10"): return String(calcLog10(number));
       // Logaritmo base 2
@@ -283,6 +289,24 @@ function calcSquare(number) {
  */
 function calcSquareRoot(number) {
    return Math.sqrt(parseFloat(number.replace('√', '')), 2);
+}
+
+/** 
+ * Calcula el factorial del numero recibido por parametro.
+ * 
+ * @param {string} number - Cadena que representa un número.
+ * @returns {number} El numero tras realizarle el factorial.
+ */
+function calcFact(number) {
+   const parsedNumber = parseFloat(number.replace("!"));
+
+   if (parsedNumber === 0 || parsedNumber === 1) return 1;
+
+   let result = 1;
+   for (let i = 2; i <= parsedNumber; i++) {
+      result *= i;
+   }
+   return result;
 }
 
 /** 
@@ -379,6 +403,13 @@ function toSquareRoot() {
    let index = Number(nSelected);
 
    n[index] = "√" + calcAdvanced(n[index]);
+   printAll();
+}
+
+function toFact() {
+   let index = Number(nSelected);
+
+   n[index] = calcAdvanced(n[index]) + '!';
    printAll();
 }
 
