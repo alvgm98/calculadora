@@ -21,6 +21,7 @@ Por ejemplo:
 ## Uso en Local
 
 1. Clona este repositorio en tu máquina local.
+   
    HTTPS:
    ```bash
    git clone https://github.com/alvgm98/calculadora.git
@@ -29,6 +30,7 @@ Por ejemplo:
     ```bash
    git clone git@github.com:alvgm98/calculadora.git
    ```
+
 2. Abre el archivo `index.html` en tu navegador web.
 
 ---
